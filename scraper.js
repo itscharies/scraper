@@ -345,27 +345,16 @@ async function scrapePages(urls, schema, requireBrowser) {
 }
 
 /**
- * @deprecated You should probably just make a list of links and run scrapePages :lol:
- * @param {*} url
- * @param {*} schema
+ * @param {*} url A URL template e.g 'mywebsite.com/?page={i}'
  * @param {*} total
- * @param {*} requireBrowser
  * @returns
  */
-async function scrapePagination(url, schema, total, requireBrowser) {
+export function paginate(url, total) {
   let pages = [];
 
-  if (typeof total === "number") {
-    for (let i = 1; i <= total; i++) {
-      pages.push(i);
-    }
-  } else {
-    pages = total;
+  for (let i = 1; i <= total; i++) {
+    pages.push(url.replace("{i}", i));
   }
 
-  return Promise.all(
-    pages.map((page) =>
-      scrape(url.replace("{page}", page), schema, requireBrowser)
-    )
-  );
+  return pages;
 }
