@@ -254,6 +254,7 @@ const mapObject = async ($scope, schema) => {
       await resolveSchema($el, schema, result, i);
     }
   } else if (isArray(schema)) {
+    // TODO: maybe I should change this behaviour? it wasn't very intuitive coming back to this
     result = new Array(schema.length);
     await resolveSchema($scope, schema, result);
   } else {
